@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Karla:wght@400;600&display=swap');
+
+main {
+  margin: 2em;
+}
+.app-spinner {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: -16px;
+  margin-left: -16px;
+}
+ 
+p {
+    line-height: 2rem;
+}
+
+.post p {
+    white-space: pre-wrap;
+}
+
+body {
+  background-color: #F5F4F0;
+  font-family: 'Karla', sans-serif;
+}
+
+h1 {
+  font-family: 'Crimson Text', serif;
+}
+
+button {
+  margin: .25em;
+}
+
+.nav-bar-link-container {
+  margin: 0 auto;
+}
+
+.nav-bar-link-container {
+  display: flex;
+  margin: 0 auto;
+}
+
+.topicCard {
+  display: flex;
+  flex-direction: column;
+}
