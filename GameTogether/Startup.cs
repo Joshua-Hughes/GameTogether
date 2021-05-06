@@ -32,6 +32,7 @@ namespace GameTogether
 
             services.AddTransient<IUserProfileRepository, UserProfileRepository>();
             services.AddTransient<ITopicRepository, TopicRepository>();
+            services.AddTransient<IThreadCommentRepository, ThreadCommentRepository>();
 
             var firebaseProjectId = Configuration.GetValue<string>("FirebaseProjectId");
             var googleTokenUrl = $"https://securetoken.google.com/{firebaseProjectId}";

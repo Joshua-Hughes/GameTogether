@@ -10,7 +10,7 @@ namespace GameTogether.Models
 
         public string topicContent { get; set; }
 
-        public DateTime topicCreationDate { get; set; }
+        public string topicCreationDate { get; set; }
 
         public int topicAuthorId { get; set; }
 

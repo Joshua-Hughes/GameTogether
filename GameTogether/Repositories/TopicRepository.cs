@@ -34,7 +34,7 @@ namespace GameTogether.Repositories
                             id = DbUtils.GetInt(reader, "topicId"),
                             topicTitle = DbUtils.GetString(reader, "topicTitle"),
                             topicContent = DbUtils.GetNullableString(reader, "topicContent"),
-                            topicCreationDate = DbUtils.GetDateTime(reader, "topicCreationDate"),
+                            topicCreationDate = DbUtils.GetDateTime(reader, "topicCreationDate").ToString("MM/dd/yyyy"),
                             topicAuthorId = DbUtils.GetInt(reader, "authorId"),
                             topicImage = DbUtils.GetNullableString(reader, "topicImage"),
                             topicAuthor = new UserProfile()
@@ -77,7 +77,7 @@ namespace GameTogether.Repositories
                             id = DbUtils.GetInt(reader, "topicId"),
                             topicTitle = DbUtils.GetString(reader, "topicTitle"),
                             topicContent = DbUtils.GetNullableString(reader, "topicContent"),
-                            topicCreationDate = DbUtils.GetDateTime(reader, "topicCreationDate"),
+                            topicCreationDate = DbUtils.GetDateTime(reader, "topicCreationDate").ToString("MM/dd/yyyy"),
                             topicAuthorId = DbUtils.GetInt(reader, "authorId"),
                             topicImage = DbUtils.GetNullableString(reader, "topicImage"),
                             topicAuthor = new UserProfile()
@@ -119,7 +119,7 @@ namespace GameTogether.Repositories
                             id = DbUtils.GetInt(reader, "topicId"),
                             topicTitle = DbUtils.GetString(reader, "topicTitle"),
                             topicContent = DbUtils.GetNullableString(reader, "topicContent"),
-                            topicCreationDate = DbUtils.GetDateTime(reader, "topicCreationDate"),
+                            topicCreationDate = DbUtils.GetDateTime(reader, "topicCreationDate").ToString("MM/dd/yyyy"),
                             topicAuthorId = DbUtils.GetInt(reader, "authorId"),
                             topicImage = DbUtils.GetNullableString(reader, "topicImage"),
                             topicAuthor = new UserProfile()
