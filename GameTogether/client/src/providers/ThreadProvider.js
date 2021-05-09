@@ -8,18 +8,18 @@ export const ThreadProvider = (props) => {
     const { getToken } = useContext(UserProfileContext)
     const userProfile = JSON.parse(sessionStorage.getItem("userProfile"))
 
-    const getThreadByPost = (topicId) => {
+    const getThreadByTopic = (topicId) => {
         return getToken().then((token) =>
-            fetch(`api/thread/${topicId}`, {
+            fetch(`/thread/${topicId}`, {
                 method: "GET",
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             })
-                .then((res) => res.json()))
+                .then((res) => res.json()));
     }
     return (
-        <ThreadContext.Provider value={{ threads, getThreadByPost }}>
+        <ThreadContext.Provider value={{ threads, getThreadByTopic }}>
             {props.children}
         </ThreadContext.Provider>
     );

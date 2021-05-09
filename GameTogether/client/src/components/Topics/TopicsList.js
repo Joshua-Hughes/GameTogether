@@ -1,10 +1,12 @@
 import React, { useContext, useEffect } from "react";
 import { TopicContext } from "../../providers/TopicProvider";
 import { Link } from "react-router-dom";
-import { Col } from "reactstrap";
+import { Col, Button } from "reactstrap";
+import { UserProfileContext } from "../../providers/UserProfileProvider";
 
 const TopicsList = () => {
   const { topics, getAllTopics, searchTopics } = useContext(TopicContext);
+  const { userProfile } = useContext(UserProfileContext);
 
   useEffect(() => {
     getAllTopics();
@@ -22,8 +24,6 @@ const TopicsList = () => {
     }
   }
 
-console.log(topics)
-
   return (
     <div className="topics-container">
       <Col className="topics-header">
@@ -33,6 +33,11 @@ console.log(topics)
         <input type="text" id="topicSearch" autoFocus className="form-search" placeholder="Search Topics" />
         <button className="search-button" onClick={handleClickSearchList}>Search</button>
       </fieldset>
+      <Button color="primary">
+        <Link className="NewTopicButton" to={"/Topic/New"} style={{ color: `#7B68EE` }}>
+          Create a Topic
+        </Link>
+      </Button>
       <Col>
         {topics.map((topic) => (
           <div className="topic-card" key={topic.id}>
@@ -42,6 +47,7 @@ console.log(topics)
               </h3>
             </Link>
             <p>Written By: {topic.topicAuthor.displayName}</p>
+            <p>Published: {topic.topicCreationDate}</p>
             <p>Likes: TODO</p>
           </div>
         ))}

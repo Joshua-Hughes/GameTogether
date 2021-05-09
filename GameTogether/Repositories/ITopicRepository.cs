@@ -8,5 +8,8 @@ namespace GameTogether.Repositories
         List<Topic> GetAll();
         List<Topic> SearchTopics(string search);
         Topic GetTopicDetails(int id);
+        void Add(Topic topic);
+        void Delete(int topicId);
+        void Update(Topic topic);
     }
 }

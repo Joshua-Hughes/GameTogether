@@ -39,10 +39,39 @@ namespace GameTogether.Controllers
             return Ok(_topicRepository.GetTopicDetails(id));
         }
 
+        [HttpPost("add")]
+        public IActionResult Post(Topic topic)
+        {
+            var currentUserProfile = GetCurrentUserProfile();
+            topic.topicAuthorId = currentUserProfile.id;
+            _topicRepository.Add(topic);
+            return CreatedAtAction("Get", new { id = topic.id }, topic);
+        }
+
+        [HttpDelete("delete/{topicId}")]
+        public IActionResult Delete(int topicId)
+        {
+            _topicRepository.Delete(topicId);
+            return NoContent();
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, Topic topic)
+        {
+            if (id != topic.id)
+            {
+                return BadRequest();
+            }
+
+            _topicRepository.Update(topic);
+            return NoContent();
+        }
+
         private UserProfile GetCurrentUserProfile()
         {
             var firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             return _userProfileRepository.GetByFirebaseUserId(firebaseUserId);
         }
+
     }
 }

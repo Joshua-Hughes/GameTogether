@@ -140,5 +140,68 @@ namespace GameTogether.Repositories
                 }
             }
         }
+
+        public void Add(Topic topic)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"INSERT INTO Topic (topicTitle, topicContent, topicCreationDate, topicAuthorId, topicImage)
+                                        OUTPUT INSERTED.ID
+                                        VALUES (@topicTitle, @topicContent, @topicCreationDate, @topicAuthorId, @topicImage);";
+
+                    DbUtils.AddParameter(cmd, "@topicTitle", topic.topicTitle);
+                    DbUtils.AddParameter(cmd, "@topicContent", topic.topicContent);
+                    DbUtils.AddParameter(cmd, "@topicCreationDate", topic.topicCreationDate);
+                    DbUtils.AddParameter(cmd, "@topicAuthorId", topic.topicAuthorId);
+                    DbUtils.AddParameter(cmd, "@topicImage", topic.topicImage);
+
+                    topic.id = (int)cmd.ExecuteScalar();
+                }
+            }
+        }
+
+        public void Delete(int topicId)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"DELETE FROM ThreadComment WHERE topicId = @id;
+                                        DELETE FROM Topic WHERE id = @id;";
+
+                    DbUtils.AddParameter(cmd, "@id", topicId);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void Update(Topic topic)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        UPDATE Topic
+                            SET topicTitle = @topicTitle,
+                            topicContent = @topicContent,
+                            topicImage = @topicImage
+                        WHERE id = @id;";
+
+                    DbUtils.AddParameter(cmd, "@topicTitle", topic.topicTitle);
+                    DbUtils.AddParameter(cmd, "@topicContent", topic.topicContent);
+                    DbUtils.AddParameter(cmd, "@topicImage", topic.topicImage);
+                    DbUtils.AddParameter(cmd, "@id", topic.id);
+                        
+                        cmd.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }
