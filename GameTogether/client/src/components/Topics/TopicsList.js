@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { TopicContext } from "../../providers/TopicProvider";
 import { Link } from "react-router-dom";
 import { Col, Button } from "reactstrap";
@@ -9,7 +9,7 @@ const TopicsList = () => {
   const { userProfile } = useContext(UserProfileContext);
 
   useEffect(() => {
-    getAllTopics();
+    getAllTopics()
   }, []);
 
   const handleClickSearchList = (event) => {
@@ -48,7 +48,6 @@ const TopicsList = () => {
             </Link>
             <p>Written By: {topic.topicAuthor.displayName}</p>
             <p>Published: {topic.topicCreationDate}</p>
-            <p>Likes: TODO</p>
           </div>
         ))}
       </Col>

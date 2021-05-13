@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace GameTogether.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class TopicController : ControllerBase

@@ -17,8 +17,8 @@ export const TopicProvider = (props) => {
                     "Content-Type": "application/json"
                 }
             })
-                .then((res) => res.json())
-                .then(setTopics))
+                .then((res) => res.json()))
+                .then(setTopics)
     }
 
     const searchTopics = (query) => {
@@ -78,9 +78,22 @@ export const TopicProvider = (props) => {
         )
     };
 
+    const EditTopic = (topic) => {
+        getToken().then((token) => 
+        fetch(`/api/Topic/${topic.id}`, {
+            method: "PUT",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(topic),
+        })
+            .then(getTopicDetails(topic.id)))
+    }
+
 
     return (
-        <TopicContext.Provider value={{ topics, getAllTopics, searchTopics, getTopicDetails, addTopic, DeleteTopic }}>
+        <TopicContext.Provider value={{ topics, getAllTopics, searchTopics, getTopicDetails, addTopic, DeleteTopic, EditTopic }}>
             {props.children}
         </TopicContext.Provider>
     );

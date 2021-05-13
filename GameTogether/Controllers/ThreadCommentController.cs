@@ -27,6 +27,34 @@ namespace GameTogether.Controllers
             return Ok(_threadCommentRepository.GetCommentsByTopic(id));
         }
 
+        [HttpPost("add")]
+        public IActionResult Post(ThreadComment comment)
+        {
+            var currentUserProfile = GetCurrentUserProfile();
+            comment.authorId = currentUserProfile.id;
+            _threadCommentRepository.Add(comment);
+            return CreatedAtAction("Get", new { id = comment.id }, comment);
+        }
+
+        [HttpDelete("delete/{commentId}")]
+        public IActionResult Delete(int commentId)
+        {
+            _threadCommentRepository.Delete(commentId);
+            return NoContent();
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, ThreadComment comment)
+        {
+            if (id != comment.id)
+            {
+                return BadRequest();
+            }
+
+            _threadCommentRepository.Update(comment);
+            return NoContent();
+        }
+
         private UserProfile GetCurrentUserProfile()
         {
             var firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;

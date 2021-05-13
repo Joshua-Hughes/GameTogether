@@ -8,6 +8,7 @@ import { TopicProvider } from "../providers/TopicProvider";
 import TopicDetails from "./Topics/TopicDetails";
 import { ThreadProvider } from "../providers/ThreadProvider";
 import AddTopicForm from "./Topics/AddTopic";
+import EditTopicForm from "./Topics/EditTopic";
 
 export default function ApplicationViews() {
     const { isLoggedIn } = useContext(UserProfileContext);
@@ -35,6 +36,10 @@ export default function ApplicationViews() {
 
                         <Route exact path="/Topic/New">
                             {isLoggedIn ? <AddTopicForm /> : <Redirect to="/login" />}
+                        </Route>
+
+                        <Route exact path="/Topic/Edit/:topicId(\d+)">
+                            {isLoggedIn ? <EditTopicForm /> : <Redirect to="/login" />}
                         </Route>
                     </ThreadProvider>
                 </TopicProvider>

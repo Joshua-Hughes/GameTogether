@@ -52,5 +52,61 @@ namespace GameTogether.Repositories
                 }
             }
         }
+
+        public void Add(ThreadComment comment)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"INSERT INTO ThreadComment (topicId, authorId, threadComment, commentCreationDate)
+                                        OUTPUT INSERTED.ID
+                                        VALUES (@topicId, @authorId, @threadComment, @commentCreationDate);";
+
+                    DbUtils.AddParameter(cmd, "@topicId", comment.topicId);
+                    DbUtils.AddParameter(cmd, "@authorId", comment.authorId);
+                    DbUtils.AddParameter(cmd, "@threadComment", comment.threadComment);
+                    DbUtils.AddParameter(cmd, "@commentCreationDate", comment.commentCreationDate);
+
+                    comment.id = (int)cmd.ExecuteScalar();
+                }
+            }
+        }
+        public void Delete(int commentId)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"DELETE FROM ThreadComment WHERE id = @id;";
+
+                    DbUtils.AddParameter(cmd, "@id", commentId);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void Update(ThreadComment comment)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        UPDATE ThreadComment
+                            SET threadComment = @threadComment
+                        WHERE id = @id;";
+
+                    DbUtils.AddParameter(cmd, "@threadComment", comment.threadComment);
+                    DbUtils.AddParameter(cmd, "@id", comment.id);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }
